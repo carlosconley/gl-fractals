@@ -129,8 +129,9 @@ function fillScreen() {
 window.fpsUpdate = 0
 function timeStep(ms) {
   let seconds = ms / 1000
-
-  draw()
+    
+  if (shouldRender)
+      draw()
   if (fpsUpdate == 10) {
     let delta = (seconds - time) / 10
     // update framerate
@@ -138,6 +139,7 @@ function timeStep(ms) {
     time = seconds
     fpsUpdate = 0
   }
+  shouldRender = false
 
   fpsUpdate++;
   requestAnimationFrame(timeStep)
@@ -199,6 +201,7 @@ async function setup(event) {
 
   const factor = 0.90;
   const invFactor = 1.0 / factor;
+  window.shouldRender = true
 
 
   canvas.addEventListener('mousedown', (ev) => {
@@ -214,6 +217,7 @@ async function setup(event) {
     let diff = mul(sub(pos, window.clicked), scale)
 
     center = sub(last_center, diff)
+    window.shouldRender = true
   })
 
   canvas.addEventListener('mouseup', (ev) => {
@@ -227,6 +231,8 @@ async function setup(event) {
     } else {
       scale *= invFactor;
     }
+
+    window.shouldRender = true
 
   })
 
