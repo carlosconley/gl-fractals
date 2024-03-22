@@ -123,6 +123,7 @@ function fillScreen() {
       gl.viewport(0,0, canvas.width, canvas.height)
       window.p = m4perspNegZ(0.1, 50, 1, canvas.width, canvas.height)
   }
+  window.shouldRender = true
 }
 
 
@@ -196,8 +197,6 @@ async function setup(event) {
   window.center = [canvas.width / 2, 0.]
   window.last_center = center
   window.scale = 2.0
-
-  console.log(center)
 
   const factor = 0.90;
   const invFactor = 1.0 / factor;
